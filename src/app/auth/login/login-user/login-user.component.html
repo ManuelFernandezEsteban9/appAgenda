@@ -1,0 +1,38 @@
+<div class=" flex flex-col gap-3 p-6 content-center md:flex-row">
+    <h1 class=" text-3xl">Login usuario</h1>
+    <form [formGroup]="loginForm" class="flex flex-col flex-wrap gap-3 ">
+      
+      <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input type="email" id="email" matInput formControlName="email" [errorStateMatcher]="matcher"
+          placeholder="Ex. email@email.com">
+  
+        @if (loginForm.get('email')?.hasError('required')) {
+        <mat-error>Email is <strong>required</strong></mat-error>
+        }
+        @if (loginForm.get('email')?.hasError('email')) {
+        <mat-error>This email is not <strong>valid email</strong></mat-error>
+        }
+      </mat-form-field>
+      
+      <mat-form-field>
+        <mat-label>Password</mat-label>
+        <input type="password" id="password" matInput formControlName="password" [errorStateMatcher]="matcher"
+          placeholder="Ex. ***********">
+  
+        @if (loginForm.get('password')?.hasError('required')) {
+        <mat-error>Password is <strong>required</strong></mat-error>
+        }
+      </mat-form-field>
+  
+      <div class=" flex flex-col flex-wrap content-center gap-3">
+        <div class=" flex gap-3 justify-center">
+          <button mat-flat-button [disabled]="!isValid()" (click)="onSubmit()">Login</button>
+          <button mat-stroked-button (click)="reset()">Cancelar</button>
+        </div>
+        <a [routerLink]="['/registro']" class=" self-center">No tienes cuenta?</a>
+      </div>
+  
+    </form>
+  
+  </div>

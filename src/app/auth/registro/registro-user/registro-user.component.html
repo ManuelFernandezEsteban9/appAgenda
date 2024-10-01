@@ -1,0 +1,55 @@
+<div class=" flex flex-col gap-3 p-6 content-center md:flex-row">
+  <h1 class=" text-3xl">Registro usuario</h1>
+  <form [formGroup]="registroForm" class="flex flex-col flex-wrap gap-3 ">
+    <mat-form-field >
+      <mat-label>Nombre</mat-label>
+      <input type="text" id="nombre" matInput formControlName="nombre" [errorStateMatcher]="matcher"
+        placeholder="Ex. Manuel">
+
+      @if (registroForm.get('nombre')?.hasError('required')) {
+      <mat-error>Nombre is <strong>required</strong></mat-error>
+      }
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input type="email" id="email" matInput formControlName="email" [errorStateMatcher]="matcher"
+        placeholder="Ex. email@email.com">
+
+      @if (registroForm.get('email')?.hasError('required')) {
+      <mat-error>Email is <strong>required</strong></mat-error>
+      }
+      @if (registroForm.get('email')?.hasError('email')) {
+      <mat-error>This email is not <strong>valid email</strong></mat-error>
+      }
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Teléfono</mat-label>
+      <input type="phone" id="telefono" matInput formControlName="telefono" [errorStateMatcher]="matcher"
+        placeholder="Ex. 612345678">
+
+      @if (registroForm.get('telefono')?.hasError('required')) {
+      <mat-error>Phone is <strong>required</strong></mat-error>
+      }
+
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Password</mat-label>
+      <input type="password" id="password" matInput formControlName="password" [errorStateMatcher]="matcher"
+        placeholder="Ex. ***********">
+
+      @if (registroForm.get('password')?.hasError('required')) {
+      <mat-error>Password is <strong>required</strong></mat-error>
+      }
+    </mat-form-field>
+
+    <div class=" flex flex-col flex-wrap content-center gap-3">
+      <div class=" flex gap-3 justify-center">
+        <button mat-flat-button [disabled]="!isValid()" (click)="onSubmit()">Registro</button>
+        <button mat-stroked-button (click)="reset()">Cancelar</button>
+      </div>
+      <a [routerLink]="['/login']" class=" self-center">Tienes cuenta?</a>
+    </div>
+
+  </form>
+
+</div>
