@@ -12,7 +12,7 @@ import {
   ReactiveFormsModule,
   FormGroup,
 } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { LoginUserDto } from '../../../../domain/dtos/login_user.dto';
 import { AuthServiceService } from '../../../../services/auth-service.service';
@@ -46,6 +46,7 @@ export default class LoginUserComponent {
     
   })
   matcher = new MyErrorStateMatcher();
+  private router = inject(Router);
   private serviceAuth = inject(AuthServiceService);
   error:string='';
 
@@ -66,6 +67,7 @@ export default class LoginUserComponent {
 
     this.serviceAuth.loginUser(userLoginDto!).subscribe(res=>{
       console.log(res);
+      this.router.navigate(['/dashboard'])
     },
       err=>{
         this.error=err.error.error;
