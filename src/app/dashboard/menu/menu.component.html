@@ -1,14 +1,16 @@
-<mat-toolbar>
-    <button mat-button [matMenuTriggerFor]="menu">
-        <mat-icon>menu</mat-icon>
-    </button>
-    <mat-menu #menu="matMenu">
-        <button mat-menu-item routerLink="clientes" routerLinkActive="active">Clientes</button>
-        <button mat-menu-item routerLink="visitas" routerLinkActive="active">Visitas</button>
-        <button mat-menu-item>Ofertas</button>
+<mat-toolbar class=" flex justify-between">
+    <span>
+        <button mat-button [matMenuTriggerFor]="menu">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item routerLink="clientes" routerLinkActive="active">Clientes</button>
+            <button mat-menu-item routerLink="visitas" routerLinkActive="active">Visitas</button>
+            <button mat-menu-item>Ofertas</button>
 
-    </mat-menu>
-    <span>Agenda</span>
-    <span class="example-spacer"></span>
+        </mat-menu>
+        <span>Agenda</span>
+    </span>
+    <app-user-menu class=" justify-self-end"></app-user-menu>
 
 </mat-toolbar>

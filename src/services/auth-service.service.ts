@@ -14,14 +14,23 @@ const base_url = environment.base_url
 })
 export class AuthServiceService {
 
+  user: UserResponse | undefined;
+
   private http = inject(HttpClient);
 
   constructor() { }
 
+  logOut(){
+    localStorage.removeItem('token');
+  }
+
   registroUser(registroDto: RegisterUserDto): Observable<UserResponse> {
 
     return this.http.post<UserResponse>(`${base_url}/auth/register`, registroDto).pipe(
-      tap(resp => { localStorage.setItem('token', resp.token) })
+      tap(resp => { 
+        localStorage.setItem('token', resp.token) ;
+        this.user = resp;
+      })
     );
 
   }
@@ -29,7 +38,11 @@ export class AuthServiceService {
   loginUser(loginUserDto: LoginUserDto): Observable<UserResponse> {
 
     return this.http.post<UserResponse>(`${base_url}/auth/login`, loginUserDto).pipe(
-      tap(resp => { localStorage.setItem('token', resp.token) })
+      tap(resp => { 
+        localStorage.setItem('token', resp.token) ;
+        this.user = resp;
+
+      })
     );
 
   }
@@ -45,7 +58,10 @@ export class AuthServiceService {
       }
     )
       .pipe(
-        tap(resp => { localStorage.setItem('token', resp.token) }),
+        tap(resp => { 
+          localStorage.setItem('token', resp.token) ;
+          this.user = resp;
+        }),
         map(user=>!!user)
       )
     

@@ -1,0 +1,11 @@
+
+
+<div class=" flex flex-col text-xs items-end">
+    <div class=" flex justify-between" > 
+        <span>{{authService.user?.nombre}}</span>
+        <img [src]="authService.user?.avatar" alt="">
+    </div>
+    <span>{{authService.user?.email}}</span>
+    <button mat-button (click)="logOut()">Log out</button>
+
+</div>
