@@ -17,7 +17,7 @@ import {
   ReactiveFormsModule,
   FormGroup,
 } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -43,6 +43,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export default class RegistroUserComponent {
 
+  private router = inject(Router)
   private serviceAuth = inject(AuthServiceService);
   
   public dataRes: RegistroUser;
@@ -88,10 +89,7 @@ export default class RegistroUserComponent {
     } 
 
     this.serviceAuth.registroUser(userRegistroDto!).subscribe(res => {
-      console.log(res);
-      //TODO enviar al dashboard
-      //TODO guardar info usuario
-      //TODO guardar token 
+      this.router.navigate(['/dashboard'])
     },
       err => {
         this.error = err.error.error;

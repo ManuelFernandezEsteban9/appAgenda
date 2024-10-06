@@ -10,7 +10,7 @@ const base_url = environment.base_url
 export const authGuard: CanActivateFn = (route, state) => {
   
   const authService = inject(AuthServiceService);
-  console.log(route,state)
+ 
 
   return authService.validarToken();
   

@@ -22,7 +22,8 @@ export const routes: Routes = [
         loadComponent:()=>import('./dashboard/dashboard/dashboard.component'),
         
         children:[
-            {path:'',loadComponent:()=>import('./dashboard/dashboard/dashboard.component')}
+            {path:'clientes',loadComponent:()=>import('./clientes/clientes.component')},
+            {path:'visitas',loadComponent:()=>import('./visitas/visitas.component')}
         ]
     },
     {

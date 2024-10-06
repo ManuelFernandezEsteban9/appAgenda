@@ -66,7 +66,7 @@ export default class LoginUserComponent {
     }
 
     this.serviceAuth.loginUser(userLoginDto!).subscribe(res=>{
-      console.log(res);
+      
       this.router.navigate(['/dashboard'])
     },
       err=>{
