@@ -8,6 +8,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MenuClientesComponent } from './menu-clientes/menu-clientes.component';
+import {MatDividerModule} from '@angular/material/divider';
 
 interface Tipo {
   value: string;
@@ -18,8 +20,8 @@ interface Tipo {
   selector: 'app-clientes',
   standalone: true,
   imports: [
-    CommonModule, FormsModule, MatTableModule, ReactiveFormsModule,
-    AsyncPipe, MatSelectModule,MatIconModule,MatFormFieldModule
+    CommonModule, FormsModule, MatTableModule, ReactiveFormsModule, MatDividerModule,
+    AsyncPipe, MatSelectModule,MatIconModule,MatFormFieldModule,MenuClientesComponent
   ],
   templateUrl: './clientes.component.html',
 

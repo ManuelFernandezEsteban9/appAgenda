@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { AuthServiceService } from '../../../../services/auth-service.service';
 import { RegisterUserDto } from '../../../../domain/dtos/registro-user.dto';
-import { UserResponse } from '../../../../domain/entities/userResponse.';
 import { RegistroUser } from '../../../../domain/entities/registroUser.';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
