@@ -1,7 +1,7 @@
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { MatTableModule } from '@angular/material/table'
-import { ClienteEntity } from '../../domain/entities/clientesResponse';
+import { ClienteEntity } from '../../domain/entities/cliente.entity';
 import { ClienteService } from '../../services/cliente.service';
 import { Observable } from 'rxjs';
 import { MatSelectModule } from '@angular/material/select';

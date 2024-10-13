@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { AuthServiceService } from '../../../../services/auth-service.service';
 import { RegisterUserDto } from '../../../../domain/dtos/registro-user.dto';
-import { RegistroUser } from '../../../../domain/entities/registroUser.';
+import { RegistroUser } from '../../../../domain/entities/registroUser';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -83,7 +83,7 @@ export default class RegistroUserComponent {
     const [error1, userRegistroDto] = RegisterUserDto.create(this.registroForm.value);
 
     if (error1) {
-      console.log(error1);
+      console.log(error1);//todo dialog con error
       return;
     } 
 
