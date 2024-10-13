@@ -1,0 +1,67 @@
+<div class=" flex flex-col gap-3 p-6 content-center md:flex-row">
+
+    <mat-form-field class="">
+        <mat-label>Cliente a editar</mat-label>
+        <input matInput type="text" [(ngModel)]="clienteABuscar">
+        @if (clienteABuscar) {
+
+
+        <button matSuffix mat-icon-button aria-label="Clear" (click)="clienteABuscar=''">
+            <mat-icon>search</mat-icon>
+        </button>
+
+        }
+    </mat-form-field>
+
+    <h2 class=" text-xl">Editar cliente</h2>
+    <form [formGroup]="nuevoClienteForm" class="flex flex-col flex-wrap gap-3 " autocomplete="off">
+        <mat-form-field>
+            <mat-label>Nombre</mat-label>
+            <input type="text" id="nombre" matInput formControlName="nombre" [errorStateMatcher]="matcher"
+                placeholder="Ex. Manuel">
+
+            @if (nuevoClienteForm.get('nombre')?.hasError('required')) {
+            <mat-error>Nombre is <strong>required</strong></mat-error>
+            }
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Teléfono</mat-label>
+            <input type="phone" id="telefono" matInput formControlName="telefonoPrincipal" [errorStateMatcher]="matcher"
+                placeholder="Ex. 612345678">
+
+            @if (nuevoClienteForm.get('telefono')?.hasError('required')) {
+            <mat-error>Phone is <strong>required</strong></mat-error>
+            }
+            @if (nuevoClienteForm.get('telefono')?.hasError('telefono')) {
+            <mat-error>This phone is not <strong>valid phone</strong></mat-error>
+            }
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Horario</mat-label>
+            <input type="text" id="horario" matInput formControlName="horario" [errorStateMatcher]="matcher"
+                placeholder="Ex. mañana">
+
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Tipo de cliente</mat-label>
+            <mat-select formControlName="tipoCliente">
+                @for (tipo of tiposClientes; track tipo) {
+                <mat-option [value]="tipo.value">{{tipo.viewValue}}</mat-option>
+                }
+            </mat-select>
+
+            @if (nuevoClienteForm.get('tipoCliente')?.hasError('tipoCliente')) {
+            <mat-error>tipoCliente is <strong>required</strong></mat-error>
+            }
+        </mat-form-field>
+
+        <div class=" flex flex-col flex-wrap content-center gap-3">
+            <div class=" flex gap-3 justify-center">
+                <button mat-flat-button [disabled]="!isValid()" (click)="onSubmit()">Aceptar</button>
+                <button mat-stroked-button (click)="reset()">Cancelar</button>
+            </div>
+        </div>
+
+    </form>
+
+</div>
