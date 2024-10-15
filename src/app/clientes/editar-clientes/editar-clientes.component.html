@@ -1,26 +1,34 @@
 <div class=" flex flex-col gap-3 p-6 content-center md:flex-row">
 
     <mat-form-field class="">
-        <mat-label>Cliente a editar</mat-label>
+        <mat-label>Nombre cliente a editar</mat-label>
         <input matInput type="text" [(ngModel)]="clienteABuscar">
         @if (clienteABuscar) {
 
 
-        <button matSuffix mat-icon-button aria-label="Clear" (click)="clienteABuscar=''">
+        <button matSuffix mat-icon-button (click)="buscarCliente()">
             <mat-icon>search</mat-icon>
         </button>
 
         }
     </mat-form-field>
 
+    @if (clientesFiltrados.length>0) {
+        @for (cliente of clientesFiltrados; track $index) {
+            <div>
+                <p>{{cliente.nombre}}</p>
+            </div>
+        }
+    }
+    
     <h2 class=" text-xl">Editar cliente</h2>
-    <form [formGroup]="nuevoClienteForm" class="flex flex-col flex-wrap gap-3 " autocomplete="off">
+    <form [formGroup]="editarClienteForm" class="flex flex-col flex-wrap gap-3 " autocomplete="off">
         <mat-form-field>
             <mat-label>Nombre</mat-label>
             <input type="text" id="nombre" matInput formControlName="nombre" [errorStateMatcher]="matcher"
                 placeholder="Ex. Manuel">
 
-            @if (nuevoClienteForm.get('nombre')?.hasError('required')) {
+            @if (editarClienteForm.get('nombre')?.hasError('required')) {
             <mat-error>Nombre is <strong>required</strong></mat-error>
             }
         </mat-form-field>
@@ -29,10 +37,10 @@
             <input type="phone" id="telefono" matInput formControlName="telefonoPrincipal" [errorStateMatcher]="matcher"
                 placeholder="Ex. 612345678">
 
-            @if (nuevoClienteForm.get('telefono')?.hasError('required')) {
+            @if (editarClienteForm.get('telefono')?.hasError('required')) {
             <mat-error>Phone is <strong>required</strong></mat-error>
             }
-            @if (nuevoClienteForm.get('telefono')?.hasError('telefono')) {
+            @if (editarClienteForm.get('telefono')?.hasError('telefono')) {
             <mat-error>This phone is not <strong>valid phone</strong></mat-error>
             }
         </mat-form-field>
@@ -50,7 +58,7 @@
                 }
             </mat-select>
 
-            @if (nuevoClienteForm.get('tipoCliente')?.hasError('tipoCliente')) {
+            @if (editarClienteForm.get('tipoCliente')?.hasError('tipoCliente')) {
             <mat-error>tipoCliente is <strong>required</strong></mat-error>
             }
         </mat-form-field>

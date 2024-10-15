@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { filter, map, Observable, pipe } from 'rxjs';
 import { ClienteEntity } from '../domain/entities/cliente.entity';
 import { ClienteNuevoDto } from '../domain/dtos/nuevo_cliente.dto';
 
@@ -35,5 +35,7 @@ export class ClienteService {
     )
 
   }
+
+  
 
 }
