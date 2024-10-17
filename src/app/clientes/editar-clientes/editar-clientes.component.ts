@@ -6,8 +6,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
-import { ClienteNuevoDto } from '../../../domain/dtos/nuevo_cliente.dto';
+import {MatDividerModule} from '@angular/material/divider';
 import { ClienteService } from '../../../services/cliente.service';
+import {MatListModule} from '@angular/material/list';
 import {
   FormControl,
   FormGroupDirective,
@@ -39,8 +40,8 @@ interface DialogData {
   selector: 'app-editar-clientes',
   standalone: true,
   imports: [
-    CommonModule, MatButtonModule, MatSelectModule, MatIconModule,
-    FormsModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule
+    CommonModule, MatButtonModule, MatSelectModule, MatIconModule,MatDividerModule,
+    FormsModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule,MatListModule
   ],
   templateUrl: './editar-clientes.component.html',
   styles: `
@@ -67,6 +68,10 @@ export class EditarClientesComponent implements OnInit {
     telefonoPrincipal: new FormControl('', [Validators.required]),
     horario: new FormControl(''),
     tipoCliente: new FormControl('', [Validators.required])
+  })   
+
+  busquedaClienteForm:FormGroup=new FormGroup({
+    cliente: new FormControl()
   })
 
   matcher = new MyErrorStateMatcher();
@@ -93,6 +98,16 @@ export class EditarClientesComponent implements OnInit {
     console.log(this.clientesFiltrados);
     
 
+  }
+
+  onClickCliente(cliente:ClienteEntity){
+    console.log(cliente);
+    this.editarClienteForm.setValue({
+      nombre:cliente.nombre,
+      telefonoPrincipal:cliente.telefonoPrincipal,
+      horario:cliente.horario||'',
+      tipoCliente:cliente.tipoCliente
+    })
   }
 
   ngOnInit(): void {

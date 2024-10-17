@@ -14,13 +14,26 @@
     </mat-form-field>
 
     @if (clientesFiltrados.length>0) {
-        @for (cliente of clientesFiltrados; track $index) {
-            <div>
-                <p>{{cliente.nombre}}</p>
-            </div>
-        }
+    <mat-divider></mat-divider>
+    <mat-list>
+        <div mat-subheader>Clientes encontrados</div>
+        <form [formGroup]="busquedaClienteForm">
+            <mat-selection-list  formControlName="cliente" name="cliente" [multiple]="false">
+                @for (cliente of clientesFiltrados; track $index) {
+                <mat-list-option [value]="cliente.id" (click)="onClickCliente(cliente)">{{cliente.nombre}}</mat-list-option>
+                }
+            </mat-selection-list>            
+        </form>
+
+
+
+
+    </mat-list>
+
+
+    <mat-divider></mat-divider>
     }
-    
+
     <h2 class=" text-xl">Editar cliente</h2>
     <form [formGroup]="editarClienteForm" class="flex flex-col flex-wrap gap-3 " autocomplete="off">
         <mat-form-field>

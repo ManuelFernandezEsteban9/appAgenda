@@ -13,7 +13,7 @@ export class ClienteEntity{
     constructor(
         public id:number,
         public nombre:string,
-        public tipoCliente:Tipos,
+        public tipoCliente:string,
         public telefonoPrincipal:string,
         public direccion:DireccionEntity[],
         public contacto:ContactoEntity[],
