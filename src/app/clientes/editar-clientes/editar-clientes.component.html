@@ -13,13 +13,13 @@
         }
     </mat-form-field>
 
-    @if (clientesFiltrados.length>0) {
+    @if (clientesFiltrados|async) {
     <mat-divider></mat-divider>
     <mat-list>
         <div mat-subheader>Clientes encontrados</div>
         <form [formGroup]="busquedaClienteForm">
             <mat-selection-list  formControlName="cliente" name="cliente" [multiple]="false">
-                @for (cliente of clientesFiltrados; track $index) {
+                @for (cliente of clientesFiltrados|async; track cliente.id) {
                 <mat-list-option [value]="cliente.id" (click)="onClickCliente(cliente)">{{cliente.nombre}}</mat-list-option>
                 }
             </mat-selection-list>            

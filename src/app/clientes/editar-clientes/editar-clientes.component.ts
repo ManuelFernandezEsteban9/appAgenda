@@ -18,7 +18,7 @@ import {
   ReactiveFormsModule,
   FormGroup,
 } from '@angular/forms';
-import { filter, map, pipe, Observable } from 'rxjs';
+import { map, pipe, Observable } from 'rxjs';
 import { ClienteEntity } from '../../../domain/entities/cliente.entity';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -54,7 +54,7 @@ interface DialogData {
 export class EditarClientesComponent implements OnInit {
 
   clienteService = inject(ClienteService);
-  clientesFiltrados: ClienteEntity[] = [];
+  clientesFiltrados?: Observable<ClienteEntity[]> ;
   clienteABuscar: string = '';
   clientes: ClienteEntity[] = [];
   tiposClientes: Tipo[] = [
@@ -90,18 +90,17 @@ export class EditarClientesComponent implements OnInit {
 
   buscarCliente() {
 
-    this.clientesFiltrados = [];
-
-    this.clientes.map(cliente => {
-      if (cliente.nombre.toLowerCase().includes(this.clienteABuscar.toLowerCase())) this.clientesFiltrados.push(cliente)
-    })
-    console.log(this.clientesFiltrados);
-    
-
+    this.clientesFiltrados= this.clienteService.getAllClientes()
+      .pipe(
+        map(clientes=>
+          clientes.filter(c=>c.nombre.toLowerCase().includes(this.clienteABuscar.toLowerCase()))
+        )
+      )
+       
   }
 
   onClickCliente(cliente:ClienteEntity){
-    console.log(cliente);
+    
     this.editarClienteForm.setValue({
       nombre:cliente.nombre,
       telefonoPrincipal:cliente.telefonoPrincipal,
