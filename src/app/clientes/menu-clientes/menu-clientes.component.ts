@@ -3,13 +3,14 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import {MatTabsModule} from '@angular/material/tabs';
 import { NuevoClienteComponent } from '../nuevo-cliente/nuevo-cliente.component';
 import { EditarClientesComponent } from "../editar-clientes/editar-clientes.component";
+import { BusquedaClientesComponent } from '../busqueda-clientes/busqueda-clientes.component';
 
 @Component({
   selector: 'app-menu-clientes',
   standalone: true,
   imports: [
     CommonModule, MatTabsModule, NuevoClienteComponent,
-    EditarClientesComponent
+    EditarClientesComponent,BusquedaClientesComponent
 ],
   templateUrl: './menu-clientes.component.html',
   styles: `
