@@ -15,15 +15,7 @@ import {
   ReactiveFormsModule,
   FormGroup,
 } from '@angular/forms';
-import {
-  MAT_DIALOG_DATA,
-  MatDialog,
-  MatDialogActions,
-  MatDialogClose,
-  MatDialogContent,
-  MatDialogRef,
-  MatDialogTitle,
-} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { ClienteService } from '../../../services/cliente.service';
 import { DialogSuccessComponent } from '../../dialogs/dialog-success/dialog-success.component';
 import { DialogErrorComponent } from '../../dialogs/dialog-error/dialog-error.component';
@@ -77,7 +69,7 @@ export class NuevoClienteComponent {
   matcher = new MyErrorStateMatcher();
 
   onSubmit(){
-    console.log(this.nuevoClienteForm.value);
+    
 
     if (this.nuevoClienteForm.valid===false) return;
     const [error,nuevoClienteDto] = ClienteNuevoDto.create(this.nuevoClienteForm.value);
@@ -96,7 +88,7 @@ export class NuevoClienteComponent {
     this.serviceCliente.postCliente(nuevoClienteDto!)
       .subscribe(res=>{        
         const dialogSuccess = this.dialog.open(DialogSuccessComponent,{
-          data:{name:res.nombre}
+          data:{name:`${res.nombre} ha sido agregado correctamente`}
         });
         dialogSuccess.afterClosed().subscribe(res=>console.log(res));
         this.reset()

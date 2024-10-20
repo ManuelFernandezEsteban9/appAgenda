@@ -20,6 +20,11 @@ import {
 } from '@angular/forms';
 import { map, pipe, Observable } from 'rxjs';
 import { ClienteEntity } from '../../../domain/entities/cliente.entity';
+import { UpdateClienteDto } from '../../../domain/dtos/update_cliente.dto';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogSuccessComponent } from '../../dialogs/dialog-success/dialog-success.component';
+import { DialogErrorComponent } from '../../dialogs/dialog-error/dialog-error.component';
+
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -27,6 +32,8 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }
 }
+
+
 
 interface Tipo {
   value: string;
@@ -52,7 +59,8 @@ interface DialogData {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EditarClientesComponent implements OnInit {
-
+  
+  readonly dialog = inject(MatDialog);
   clienteService = inject(ClienteService);
   clientesFiltrados?: Observable<ClienteEntity[]> ;
   clienteABuscar: string = '';
@@ -64,6 +72,7 @@ export class EditarClientesComponent implements OnInit {
   ];
 
   editarClienteForm = new FormGroup({
+    id: new FormControl (0),
     nombre: new FormControl('', [Validators.required]),
     telefonoPrincipal: new FormControl('', [Validators.required]),
     horario: new FormControl(''),
@@ -78,6 +87,7 @@ export class EditarClientesComponent implements OnInit {
 
   reset() {
     this.editarClienteForm.reset();
+    this.clientesFiltrados=undefined;
   }
 
   isValid() {
@@ -86,6 +96,37 @@ export class EditarClientesComponent implements OnInit {
 
   onSubmit() {
     console.log(this.editarClienteForm.value)
+    
+    if (this.editarClienteForm.valid===false) return;
+    const [error,updateClienteDto] = UpdateClienteDto.create(this.editarClienteForm.value);
+
+    
+
+    if (error) {
+      
+      const dialogError = this.dialog.open(DialogErrorComponent,{
+        data:{name:error}
+      });
+      dialogError.afterClosed().subscribe();
+      return;      
+    }
+
+    this.clienteService.putCliente(updateClienteDto!)
+      .subscribe(res=>{        
+        const dialogSuccess = this.dialog.open(DialogSuccessComponent,{
+          data:{name:`${res.nombre} ha sido editado correctamente`}          
+        });
+        dialogSuccess.afterClosed().subscribe(res=>console.log(res));
+        this.reset();
+      },
+        err=>{
+          const dialogError = this.dialog.open(DialogErrorComponent,{
+            data:{name:err}
+          });
+          dialogError.afterClosed().subscribe();
+        }
+    )
+
   }
 
   buscarCliente() {
@@ -102,6 +143,7 @@ export class EditarClientesComponent implements OnInit {
   onClickCliente(cliente:ClienteEntity){
     
     this.editarClienteForm.setValue({
+      id:cliente.id,
       nombre:cliente.nombre,
       telefonoPrincipal:cliente.telefonoPrincipal,
       horario:cliente.horario||'',
