@@ -1,1 +1,43 @@
-<p>busqueda-clientes works!</p>,
+<h2 class=" text-xl p-3">Listado clientes</h2>
+
+<mat-form-field>
+    <mat-label>Filter</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+</mat-form-field>
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="nombre">
+        <th mat-header-cell *matHeaderCellDef> Nombre </th>
+        <td mat-cell *matCellDef="let cliente"> {{cliente.nombre}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="telefonoPrincipal">
+        <th mat-header-cell *matHeaderCellDef> Teléfono principal </th>
+        <td mat-cell *matCellDef="let cliente"> {{cliente.telefonoPrincipal}} </td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="tipoCliente">
+        <th mat-header-cell *matHeaderCellDef> Tipo de cliente </th>
+        <td mat-cell *matCellDef="let cliente"> {{cliente.tipoCliente}} </td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="horario">
+        <th mat-header-cell *matHeaderCellDef> Horario </th>
+        <td mat-cell *matCellDef="let cliente"> {{cliente.horario}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+      </tr>
+</table>
